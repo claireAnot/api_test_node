@@ -48,6 +48,8 @@ app.post("/", (req, res) => {
 
 // Modifier un utilisateur basé sur les données envoyées dans le corps et le paramètre passés dans l'URL
 app.put("/", (req, res) => {
+	console.log(req.params)
+
 	res.json({
 		msg: "ici le PUT !!!",
 	})
