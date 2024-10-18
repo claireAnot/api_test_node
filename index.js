@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = 3000;
+
 app.use(express.json());
 
 const users = [
@@ -47,7 +48,7 @@ app.post("/", (req, res) => {
 })
 
 // Modifier un utilisateur basé sur les données envoyées dans le corps et le paramètre passés dans l'URL
-app.put("/", (req, res) => {
+app.put("/:id", (req, res) => {
 	console.log(req.params)
 
 	res.json({
