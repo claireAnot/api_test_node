@@ -18,10 +18,6 @@ app.listen(port, () => {
 
 // Lire tous les utilisateurs
 app.get("/", (req, res) => {
-    // res.json({
-    //     msg: "ici le GET"
-    // })
-
 	res.json(users)
 })
 
@@ -49,14 +45,39 @@ app.post("/", (req, res) => {
 
 // Modifier un utilisateur basé sur les données envoyées dans le corps et le paramètre passés dans l'URL
 app.put("/:id", (req, res) => {
-	console.log(req.params)
+    const i = parseInt(req.params.id)
 
-	res.json({
-		msg: "ici le PUT !!!",
-	})
+    if (i > 0 && i <= users.length) {
+        return res.json(users.at(i-1));
+    } else {
+        return res.json({
+            msg: "Utilisateur non trouvé !"
+        });
+    }
+})
+
+app.put("/", (req, res) => {
+    return res.json({
+            msg: "ici le PUT !!!"
+        });
 })
 
 //Supprimer un utilisateur basé sur le paramètre passé dans l'URL
+app.delete("/:id", (req, res) => {
+	const i = parseInt(req.params.id)
+
+	for (let j = 0; j < users.length; j++) {
+		if (users[j].id == i) {
+			users.splice(j, 1)
+			return res.json(users);
+		}
+	}
+        
+    return res.json({
+            msg: "Utilisateur non trouvé !"
+        });
+})
+
 app.delete("/", (req, res) => {
 	res.json({
 		msg: "ici le DELETE !!!",
