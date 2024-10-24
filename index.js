@@ -4,10 +4,13 @@ const port = 3000;
 
 const usersRouter = require("./routes/users.js")
 
-app.use(express.json()); // MIDDLEWARE
-app.use("/api/", usersRouter) // Users endpoint
+// MIDDLEWARE
+app.use(express.json());
+// Users endpoint
+app.use("/api/", usersRouter)
 
 
+// Liste d'utilisateurs
 /* const users = [
 	{ id: 1, firstName: 'John', lastName: 'Doe', role: 'admin' },
 	{ id: 2, firstName: 'Jane', lastName: 'Smith', role: 'user' },
@@ -17,19 +20,19 @@ app.use("/api/", usersRouter) // Users endpoint
 ]; */
 
 
-// Trace en console quand le serveur est en cours d'exécution
+// Liasse une trace en console quand le serveur est en cours d'exécution
 app.listen(port, () => {
 	console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);
 });
 
 
-// Obtenir tous les utilisateurs
+// Ecris un message de bienvenue
 app.get("/", (req, res) => {
 	res.json({msg: "APP : Bienvenue à tous mes utlisateurs !"})
 })
 
 
-//Pour intégrer SQLite"
+// Pour intégrer SQLite"
 const sqlite3 = require("sqlite3").verbose()
 
 // Open the database connection
