@@ -2,12 +2,17 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Connexion avec le router
 const usersRouter = require("./routes/users.js")
 
-app.use(express.json()); // MIDDLEWARE
-app.use("/api/", usersRouter) // Users endpoint
+// MIDDLEWARE
+app.use(express.json());
+
+// Users endpoint
+app.use("/api/", usersRouter)
 
 
+// Liste d'utilisateurs
 /* const users = [
 	{ id: 1, firstName: 'John', lastName: 'Doe', role: 'admin' },
 	{ id: 2, firstName: 'Jane', lastName: 'Smith', role: 'user' },
@@ -17,42 +22,13 @@ app.use("/api/", usersRouter) // Users endpoint
 ]; */
 
 
-// Trace en console quand le serveur est en cours d'exécution
+// Laisse une trace en console quand le serveur est en cours d'exécution
 app.listen(port, () => {
 	console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);
 });
 
 
-// Obtenir tous les utilisateurs
+// Ecris un message de bienvenue sur le serveur
 app.get("/", (req, res) => {
 	res.json({msg: "APP : Bienvenue à tous mes utlisateurs !"})
 })
-
-
-//Pour intégrer SQLite"
-const sqlite3 = require("sqlite3").verbose()
-
-// Open the database connection
-const db = new sqlite3.Database("./users.db", (err) => {
-	if (err) {
-		console.error("Error opening database:", err.message)
-	} else {
-		console.log("Connected to the SQLite database.")
-
-		// Create the items table if it doesn't exist
-		db.run(
-			`CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        firstName TEXT NOT NULL,
-        lastName TEXT NOT NULL
-      )`,
-			(err) => {
-				if (err) {
-					console.error("Error creating table:", err.message)
-				}
-			}
-		)
-	}
-})
-
-module.exports = db
