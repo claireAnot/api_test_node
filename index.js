@@ -4,6 +4,7 @@ const port = 3000;
 
 app.use(express.json());
 
+// Liste d'utilisateurs
 const users = [
 	{ id: 1, firstName: 'John', lastName: 'Doe', role: 'admin' },
 	{ id: 2, firstName: 'Jane', lastName: 'Smith', role: 'user' },
@@ -12,42 +13,54 @@ const users = [
 	{ id: 5, firstName: 'Charlie', lastName: 'Davis', role: 'admin' }
 ];
 
+
+// Laisse une trace en console quand le serveur est en cours d'exécution
 app.listen(port, () => {
 	console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);
 });
 
-// Lire tous les utilisateurs
+
+// Obtenir tous les utilisateurs
 app.get("/", (req, res) => {
 	res.json(users)
 })
 
-// Modifier un utilisateur basé sur les données envoyées dans le corps et le paramètre passés dans l'URL
+
+// Ajouter un nouvel utilisateur, basé sur les données dans le body
 app.post("/", (req, res) => {
+	// Récupère les informations dans le body
 	const { firstName, lastName, role } = req.body
+
+	// Ecris le contenu du body en console
 	console.log(req.body);
 
+	// Crée le nouvel utilisateur à insérer
 	const newUser = {
 		firstName,
 		lastName,
 		role,
 	}
 
-	// calculer le nouvel identifiant
+	// Calcule le nouvel identifiant
     const lastUserId = users[users.length - 1].id
     const newId = lastUserId + 1 
 
-	//ajouter le nouvel identifiant au nouvel utilisateur
+	// Ajoute le nouvel identifiant au nouvel utilisateur
     newUser.id = newId
 
 	res.status(201).json(newUser)
+	// Ajoute le nouvel utilisateur à la liste
 	users.push(newUser)
 })
 
-// Modifier un utilisateur basé sur les données envoyées dans le corps et le paramètre passés dans l'URL
+
+// Renvoie l'utilisateur demandé par l'ID saisi dans l'URL
 app.put("/:id", (req, res) => {
+	// Récupère l'ID dans l'URL
     const i = parseInt(req.params.id)
 
     if (i > 0 && i <= users.length) {
+	// Renvoie l'utilisateur à la position correspondante
         return res.json(users.at(i-1));
     } else {
         return res.json({
@@ -56,16 +69,21 @@ app.put("/:id", (req, res) => {
     }
 })
 
+
+// PUT test
 app.put("/", (req, res) => {
     return res.json({
             msg: "ici le PUT !!!"
         });
 })
 
-//Supprimer un utilisateur basé sur le paramètre passé dans l'URL
+
+// Supprimer un utilisateur basé sur l'ID passé dans l'URL
 app.delete("/:id", (req, res) => {
+	// Récupère l'ID dans l'URL
 	const i = parseInt(req.params.id)
 
+	// Parcours la liste 'users' et supprime l'utilisateur pour lequel l'ID match avec celui demandé
 	for (let j = 0; j < users.length; j++) {
 		if (users[j].id == i) {
 			users.splice(j, 1)
@@ -78,6 +96,8 @@ app.delete("/:id", (req, res) => {
         });
 })
 
+
+// DELETE test
 app.delete("/", (req, res) => {
 	res.json({
 		msg: "ici le DELETE !!!",
