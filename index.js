@@ -2,11 +2,16 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Lien avec le routeur
 const usersRouter = require("./routes/users.js")
 
-app.use(express.json()); // MIDDLEWARE
-app.use("/api/", usersRouter) // Users endpoint
+// MIDDLEWARE
+app.use(express.json());
+// Users endpoint
+app.use("/api/", usersRouter)
 
+
+// Liste d'utilisateurs
 const users = [
 	{ id: 1, firstName: 'John', lastName: 'Doe', role: 'admin' },
 	{ id: 2, firstName: 'Jane', lastName: 'Smith', role: 'user' },
@@ -16,13 +21,13 @@ const users = [
 ];
 
 
-// Trace en console quand le serveur est en cours d'exécution
+// Laisse une trace en console quand le serveur est en cours d'exécution
 app.listen(port, () => {
 	console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);
 });
 
 
-// Obtenir tous les utilisateurs
+// Envoie un message de bienvenue
 app.get("/", (req, res) => {
 	res.json({msg: "APP : Bienvenue à tous mes utlisateurs !"})
 })
