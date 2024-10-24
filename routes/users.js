@@ -20,7 +20,7 @@ router.get("/users", (req, res) => {
 // Obtenir un utilisateur via son ID
 router.get("/users/:id", (req, res) => {
 	// Récupère l'ID donné dans l'URL
-    const id = parseInt(req.params.id)
+    	const id = parseInt(req.params.id)
 
 	// Récupère l'utilisateur selon l'ID donné en paramètres dans l'URL (en parcourant la liste users), et le renvoie s'il le trouve
 	for (let j = 0; j < users.length; j++) {
@@ -35,11 +35,12 @@ router.get("/users/:id", (req, res) => {
 
 // Ajouter un nouvel utilisateur, basé sur les données dans le body
 router.post("/users", (req, res) => {
+	// Récupère les infos dans le body
 	const { firstName, lastName, role } = req.body
 
 	// Calculer le nouvel identifiant
-    const lastUserId = users[users.length - 1].id
-    const newId = lastUserId + 1 
+    	const lastUserId = users[users.length - 1].id
+    	const newId = lastUserId + 1 
 
 	const newUser = {
 		id: newId,
@@ -57,7 +58,7 @@ router.post("/users", (req, res) => {
 // Modifier un utilisateur basé sur les données envoyées dans le body et le paramètre passé dans l'URL
 router.put("/users/:id", (req, res) => {
 	// Récupère l'ID donné dans l'URL
-    const id = parseInt(req.params.id)
+    	const id = parseInt(req.params.id)
 
 	// Récupère les infos dans le body
 	const {firstName, lastName, role} = req.body
@@ -73,18 +74,19 @@ router.put("/users/:id", (req, res) => {
 			msg: "Utilisateur mis à jour !",
 			user: users[userIndex],
 		});
-    } else {
-        return res.status(404).json({msg: "Utilisateur non trouvé !"})
-    }
+    	} else {
+        	return res.status(404).json({msg: "Utilisateur non trouvé !"})
+    	}
 })
 
 
+// PUT test
 router.put("/users", (req, res) => {
     return res.json({msg: "ici le PUT !!!"});
 })
 
 
-//Supprimer un utilisateur basé sur le paramètre passé dans l'URL
+// Supprimer un utilisateur basé sur le paramètre passé dans l'URL
 router.delete("/users/:id", (req, res) => {
 	const id = parseInt(req.params.id)
 
@@ -103,6 +105,7 @@ router.delete("/users/:id", (req, res) => {
 })
 
 
+// DELETE test
 router.delete("/users", (req, res) => {
 	res.json({msg: "ici le DELETE !!!"})
 })
