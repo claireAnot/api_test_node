@@ -42,11 +42,11 @@ app.post("/", (req, res) => {
 	}
 
 	// Calcule le nouvel identifiant
-    const lastUserId = users[users.length - 1].id
-    const newId = lastUserId + 1 
+	const lastUserId = users[users.length - 1].id
+	const newId = lastUserId + 1 
 
 	// Ajoute le nouvel identifiant au nouvel utilisateur
-    newUser.id = newId
+    	newUser.id = newId
 
 	res.status(201).json(newUser)
 	// Ajoute le nouvel utilisateur à la liste
@@ -57,24 +57,20 @@ app.post("/", (req, res) => {
 // Renvoie l'utilisateur demandé par l'ID saisi dans l'URL
 app.put("/:id", (req, res) => {
 	// Récupère l'ID dans l'URL
-    const i = parseInt(req.params.id)
+    	const i = parseInt(req.params.id)
 
-    if (i > 0 && i <= users.length) {
+    	if (i > 0 && i <= users.length) {
 	// Renvoie l'utilisateur à la position correspondante
-        return res.json(users.at(i-1));
-    } else {
-        return res.json({
-            msg: "Utilisateur non trouvé !"
-        });
-    }
+        	return res.json(users.at(i-1));
+    	} else {
+        	return res.json({msg: "Utilisateur non trouvé !"});
+    	}
 })
 
 
 // PUT test
 app.put("/", (req, res) => {
-    return res.json({
-            msg: "ici le PUT !!!"
-        });
+    	return res.json({msg: "ici le PUT !!!"});
 })
 
 
@@ -91,15 +87,11 @@ app.delete("/:id", (req, res) => {
 		}
 	}
         
-    return res.json({
-            msg: "Utilisateur non trouvé !"
-        });
+    	return res.json({msg: "Utilisateur non trouvé !"});
 })
 
 
 // DELETE test
 app.delete("/", (req, res) => {
-	res.json({
-		msg: "ici le DELETE !!!",
-	})
+	res.json({msg: "ici le DELETE !!!"})
 })
