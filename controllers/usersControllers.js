@@ -19,11 +19,9 @@ exports.getOneUser = function (req, res) {
 
     // Exécute la commande SQL : sélectionne l'utilisateur de la liste avec l'ID demandé (si existant) et le renvoie
     db.get("SELECT * FROM users WHERE id = ?", [id], (err, rows) => {
-		if (err) {
-			res.status(500).json({error: err.message})
-		} else {
-			res.json(rows)
-		}
+		if (err) res.status(500).json({error: err.message})
+		else if (!rows) res.status(404).json({msg: "Utilisateur non trouvé !"})
+		else res.json(rows)
 	})
 }
 
